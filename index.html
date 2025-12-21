@@ -1,0 +1,885 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DeafSOS - Mobile Interface</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', 'Segoe UI', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #2E5BFF, #7E57C2);
+            color: #333;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 400px;
+            background: rgba(255, 255, 255, 0.97);
+            border-radius: 40px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+            margin: 20px 0;
+        }
+        
+        .phone-mockup {
+            width: 100%;
+            height: 700px;
+            background: #222;
+            border-radius: 40px;
+            padding: 20px;
+            position: relative;
+            box-shadow: 0 0 25px rgba(0, 0, 0, 0.6);
+            overflow: hidden;
+        }
+        
+        .screen {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(160deg, #2c3e50, #1a2a6c);
+            border-radius: 30px;
+            padding: 20px;
+            color: white;
+            overflow: hidden;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .status-bar {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 15px;
+            font-size: 14px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .app-header {
+            text-align: center;
+            padding: 15px 0;
+            margin-bottom: 20px;
+        }
+        
+        .app-header h1 {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+        
+        .app-header p {
+            font-size: 14px;
+            opacity: 0.8;
+        }
+        
+        .message {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 18px;
+            padding: 15px;
+            margin: 12px 0;
+            animation: messageAppear 2s forwards;
+            opacity: 0;
+            transform: translateY(20px);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            align-self: flex-start;
+            max-width: 85%;
+        }
+        
+        .message.incoming {
+            align-self: flex-end;
+            background: rgba(46, 91, 255, 0.2);
+        }
+        
+        @keyframes messageAppear {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .message-content {
+            font-size: 14px;
+            line-height: 1.5;
+        }
+        
+        .message-time {
+            font-size: 11px;
+            text-align: right;
+            opacity: 0.7;
+            margin-top: 5px;
+        }
+        
+        .options-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin: 20px 0;
+            padding: 10px;
+        }
+        
+        .option-btn {
+            background: linear-gradient(135deg, #2E5BFF, #7E57C2);
+            color: white;
+            border: none;
+            padding: 15px 10px;
+            border-radius: 15px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 90px;
+            box-shadow: 0 5px 15px rgba(46, 91, 255, 0.2);
+        }
+        
+        .option-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .option-btn i {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+        
+        .confirmation {
+            background: rgba(232, 245, 233, 0.2);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+            backdrop-filter: blur(10px);
+        }
+        
+        .reassurance {
+            background: rgba(227, 242, 253, 0.2);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 25px 0;
+            text-align: center;
+            backdrop-filter: blur(10px);
+        }
+        
+        .reassurance i {
+            font-size: 50px;
+            color: #2E5BFF;
+            margin-bottom: 20px;
+        }
+        
+        .btn {
+            background: linear-gradient(135deg, #2E5BFF, #7E57C2);
+            color: white;
+            border: none;
+            padding: 16px;
+            border-radius: 50px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 12px 0;
+            width: 100%;
+            box-shadow: 0 5px 15px rgba(46, 91, 255, 0.3);
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px;
+            color: white;
+            font-size: 14px;
+            opacity: 0.9;
+            margin-top: 20px;
+        }
+        
+        .step-title {
+            text-align: center;
+            margin-bottom: 20px;
+            color: white;
+            font-size: 22px;
+            font-weight: 700;
+        }
+        
+        .step-description {
+            text-align: center;
+            margin-bottom: 25px;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 15px;
+            line-height: 1.6;
+        }
+        
+        .ai-suggestions {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 15px;
+            margin: 20px 0;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            border-left: 5px solid #2E5BFF;
+        }
+        
+        .ai-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            color: #2E5BFF;
+        }
+        
+        .ai-header i {
+            font-size: 20px;
+            margin-right: 10px;
+        }
+        
+        .suggestion-item {
+            padding: 10px;
+            margin: 8px 0;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            font-size: 13px;
+        }
+        
+        .suggestion-item i {
+            margin-right: 10px;
+            color: #2E5BFF;
+            font-size: 14px;
+        }
+        
+        .map-container {
+            width: 100%;
+            height: 180px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            overflow: hidden;
+            margin: 20px 0;
+            position: relative;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .map {
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.2);
+            position: relative;
+            background-image: 
+                linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+        
+        .location-pin {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #FF3366;
+            font-size: 30px;
+            text-shadow: 0 0 10px rgba(255, 51, 102, 0.3);
+            animation: pulse 1.5s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: translate(-50%, -50%) scale(1); }
+            50% { transform: translate(-50%, -50%) scale(1.1); }
+            100% { transform: translate(-50%, -50%) scale(1); }
+        }
+        
+        .pin-label {
+            position: absolute;
+            top: calc(50% - 35px);
+            left: 50%;
+            transform: translateX(-50%);
+            background: #FF3366;
+            color: white;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+        
+        .emergency-info {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 15px;
+        }
+        
+        .info-item {
+            text-align: center;
+            flex: 1;
+            padding: 12px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            margin: 0 5px;
+        }
+        
+        .info-item i {
+            font-size: 20px;
+            color: #2E5BFF;
+            margin-bottom: 8px;
+        }
+        
+        .info-item p {
+            font-size: 12px;
+            opacity: 0.8;
+            margin-bottom: 5px;
+        }
+        
+        .info-item h4 {
+            font-size: 16px;
+            font-weight: 700;
+        }
+        
+        .nav-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .followup-options {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin: 15px 0;
+        }
+        
+        .followup-btn {
+            padding: 12px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: center;
+            font-weight: 500;
+            font-size: 13px;
+        }
+        
+        .followup-btn:hover {
+            background: #2E5BFF;
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(46, 91, 255, 0.2);
+        }
+        
+        .emergency-specific {
+            display: none;
+        }
+        
+        .active-question {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .content-area {
+            flex: 1;
+            overflow-y: auto;
+            padding: 10px;
+            scrollbar-width: thin;
+        }
+        
+        .content-area::-webkit-scrollbar {
+            width: 5px;
+        }
+        
+        .content-area::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+        }
+        
+        .home-indicator {
+            width: 100px;
+            height: 5px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 5px;
+            margin: 10px auto;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .section {
+            display: none;
+            height: 100%;
+            flex-direction: column;
+        }
+        
+        .active {
+            display: flex;
+        }
+        
+        .notch {
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 150px;
+            height: 25px;
+            background: #222;
+            border-radius: 0 0 15px 15px;
+            z-index: 10;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="phone-mockup">
+            <div class="notch"></div>
+            <div class="screen">
+                <div class="status-bar">
+                    <span>10:05</span>
+                    <span>DeafSOS</span>
+                    <span><i class="fas fa-battery-full"></i> 100%</span>
+                </div>
+                
+                <div class="app-header">
+                    <h1>DeafSOS</h1>
+                    <p>Emergency Alert System</p>
+                </div>
+                
+                <div class="content-area">
+                    <!-- Step 1: Introduction -->
+                    <div class="section active" id="step1">
+                        <div class="message" style="animation-delay: 1s;">
+                            <div class="message-content">SOS! I need immediate assistance. My location has been shared.</div>
+                            <div class="message-time">10:05 AM</div>
+                        </div>
+                        <div class="message incoming" style="animation-delay: 3s;">
+                            <div class="message-content">Emergency received. Please specify type of assistance needed:</div>
+                            <div class="message-time">10:06 AM</div>
+                        </div>
+                        
+                        <div class="step-description">
+                            Select the type of emergency assistance you need
+                        </div>
+                        
+                        <div class="options-grid">
+                            <div class="option-btn" onclick="selectEmergency(1)">
+                                <i class="fas fa-exclamation-triangle"></i>
+                                Immediate Help
+                            </div>
+                            <div class="option-btn" onclick="selectEmergency(2)">
+                                <i class="fas fa-ambulance"></i>
+                                Medical Assistance
+                            </div>
+                            <div class="option-btn" onclick="selectEmergency(3)">
+                                <i class="fas fa-shield-alt"></i>
+                                Police Help
+                            </div>
+                            <div class="option-btn" onclick="selectEmergency(4)">
+                                <i class="fas fa-fire-extinguisher"></i>
+                                Fire Department
+                            </div>
+                        </div>
+                        
+                        <div class="ai-suggestions">
+                            <div class="ai-header">
+                                <i class="fas fa-robot"></i>
+                                <h3>AI Suggestions</h3>
+                            </div>
+                            <div class="suggestion-item">
+                                <i class="fas fa-lightbulb"></i>
+                                <span>Based on your location, we've identified the nearest responders</span>
+                            </div>
+                            <div class="suggestion-item">
+                                <i class="fas fa-clock"></i>
+                                <span>Average response time in your area: 7-12 minutes</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Step 2: Confirmation -->
+                    <div class="section" id="step2">
+                        <h2 class="step-title" id="confirmation-title">Confirm Your Emergency</h2>
+                        <p class="step-description" id="confirmation-desc">We need more information about your situation</p>
+                        
+                        <div class="confirmation">
+                            <h3><i class="fas fa-question-circle"></i> Follow-up Questions:</h3>
+                            <p id="emergency-details">Please provide more details about your emergency situation:</p>
+                            
+                            <!-- Immediate Help Questions -->
+                            <div class="emergency-specific active-question" id="immediate-questions">
+                                <div style="margin: 15px 0;">
+                                    <p>Are you in immediate danger?</p>
+                                    <div class="followup-options">
+                                        <div class="followup-btn" onclick="selectOption(this)">Yes</div>
+                                        <div class="followup-btn" onclick="selectOption(this)">No</div>
+                                    </div>
+                                </div>
+                                
+                                <div style="margin: 15px 0;">
+                                    <p>Can you safely move to a different location?</p>
+                                    <div class="followup-options">
+                                        <div class="followup-btn" onclick="selectOption(this)">Yes</div>
+                                        <div class="followup-btn" onclick="selectOption(this)">No</div>
+                                        <div class="followup-btn" onclick="selectOption(this)">Unsure</div>
+                                    </div>
+                                </div>
+                                
+                                <div style="margin: 15px 0;">
+                                    <p>Are there other people with you?</p>
+                                    <div class="followup-options">
+                                        <div class="followup-btn" onclick="selectOption(this)">Alone</div>
+                                        <div class="followup-btn" onclick="selectOption(this)">With others</div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Medical Assistance Questions -->
+                            <div class="emergency-specific" id="medical-questions">
+                                <div style="margin: 15px 0;">
+                                    <p>What type of medical emergency?</p>
+                                    <div class="followup-options">
+                                        <div class="followup-btn" onclick="selectOption(this)">Heart attack</div>
+                                        <div class="followup-btn" onclick="selectOption(this)">Injury</div>
+                                        <div class="followup-btn" onclick="selectOption(this)">Allergic reaction</div>
+                                        <div class="followup-btn" onclick="selectOption(this)">Breathing difficulty</div>
+                                    </div>
+                                </div>
+                                
+                                <div style="margin: 15px 0;">
+                                    <p>Is the person conscious?</p>
+                                    <div class="followup-options">
+                                        <div class="followup-btn" onclick="selectOption(this)">Yes</div>
+                                        <div class="followup-btn" onclick="selectOption(this)">No</div>
+                                        <div class="followup-btn" onclick="selectOption(this)">In and out</div>
+                                    </div>
+                                </div>
+                                
+                                <div style="margin: 15px 0;">
+                                    <p>Is there severe bleeding?</p>
+                                    <div class="followup-options">
+                                        <div class="followup-btn" onclick="selectOption(this)">Yes</div>
+                                        <div class="followup-btn" onclick="selectOption(this)">No</div>
+                                        <div class="followup-btn" onclick="selectOption(this)">Moderate</div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Police Help Questions -->
+                            <div class="emergency-specific" id="police-questions">
+                                <div style="margin: 15px 0;">
+                                    <p>What type of police assistance needed?</p>
+                                    <div class="followup-options">
+                                        <div class="followup-btn" onclick="selectOption(this)">Crime in progress</div>
+                                        <div class="followup-btn" onclick="selectOption(this)">Suspicious activity</div>
+                                        <div class="followup-btn" onclick="selectOption(this)">Domestic incident</div>
+                                        <div class="followup-btn" onclick="selectOption(this)">Other</div>
+                                    </div>
+                                </div>
+                                
+                                <div style="margin: 15px 0;">
+                                    <p>Are weapons involved?</p>
+                                    <div class="followup-options">
+                                        <div class="followup-btn" onclick="selectOption(this)">Yes</div>
+                                        <div class="followup-btn" onclick="selectOption(this)">No</div>
+                                        <div class="followup-btn" onclick="selectOption(this)">Unsure</div>
+                                    </div>
+                                </div>
+                                
+                                <div style="margin: 15px 0;">
+                                    <p>Is the situation ongoing?</p>
+                                    <div class="followup-options">
+                                        <div class="followup-btn" onclick="selectOption(this)">Yes, happening now</div>
+                                        <div class="followup-btn" onclick="selectOption(this)">Already occurred</div>
+                                        <div class="followup-btn" onclick="selectOption(this)">Threatened</div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Fire Department Questions -->
+                            <div class="emergency-specific" id="fire-questions">
+                                <div style="margin: 15px 0;">
+                                    <p>What is on fire?</p>
+                                    <div class="followup-options">
+                                        <div class="followup-btn" onclick="selectOption(this)">Building</div>
+                                        <div class="followup-btn" onclick="selectOption(this)">Vehicle</div>
+                                        <div class="followup-btn" onclick="selectOption(this)">Wildfire</div>
+                                        <div class="followup-btn" onclick="selectOption(this)">Other</div>
+                                    </div>
+                                </div>
+                                
+                                <div style="margin: 15px 0;">
+                                    <p>Are people trapped?</p>
+                                    <div class="followup-options">
+                                        <div class="followup-btn" onclick="selectOption(this)">Yes</div>
+                                        <div class="followup-btn" onclick="selectOption(this)">No</div>
+                                        <div class="followup-btn" onclick="selectOption(this)">Unsure</div>
+                                    </div>
+                                </div>
+                                
+                                <div style="margin: 15px 0;">
+                                    <p>How large is the fire?</p>
+                                    <div class="followup-options">
+                                        <div class="followup-btn" onclick="selectOption(this)">Small</div>
+                                        <div class="followup-btn" onclick="selectOption(this)">Medium</div>
+                                        <div class="followup-btn" onclick="selectOption(this)">Large</div>
+                                        <div class="followup-btn" onclick="selectOption(this)">Spreading</div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="ai-suggestions">
+                                <div class="ai-header">
+                                    <i class="fas fa-robot"></i>
+                                    <h3 id="ai-title">AI Recommendations</h3>
+                                </div>
+                                <div id="ai-suggestions-content">
+                                    <div class="suggestion-item">
+                                        <i class="fas fa-first-aid"></i>
+                                        <span>If medical emergency, try to stay still and avoid movement</span>
+                                    </div>
+                                    <div class="suggestion-item">
+                                        <i class="fas fa-map-marker-alt"></i>
+                                        <span>Stay where you are so responders can find you easily</span>
+                                    </div>
+                                    <div class="suggestion-item">
+                                        <i class="fas fa-lightbulb"></i>
+                                        <span>If possible, turn on lights or make yourself visible</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <button class="btn" onclick="showStep(3)">
+                            Send Information <i class="fas fa-paper-plane"></i>
+                        </button>
+                        
+                        <button class="btn btn-secondary" onclick="showStep(1)">
+                            <i class="fas fa-arrow-left"></i> Back
+                        </button>
+                    </div>
+                    
+                    <!-- Step 3: Assistance on the way -->
+                    <div class="section" id="step3">
+                        <h2 class="step-title">Help Is On The Way!</h2>
+                        <p class="step-description">We've notified emergency services</p>
+                        
+                        <div class="map-container">
+                            <div class="map">
+                                <div class="location-pin">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    <div class="pin-label">Your Location</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="emergency-info">
+                            <div class="info-item">
+                                <i class="fas fa-clock"></i>
+                                <p>Estimated Arrival</p>
+                                <h4>8-12 min</h4>
+                            </div>
+                            <div class="info-item">
+                                <i class="fas fa-ambulance"></i>
+                                <p>Responders</p>
+                                <h4>2 Units</h4>
+                            </div>
+                            <div class="info-item">
+                                <i class="fas fa-road"></i>
+                                <p>Distance</p>
+                                <h4>1.2 mi</h4>
+                            </div>
+                        </div>
+                        
+                        <div class="reassurance">
+                            <i class="fas fa-check-circle"></i>
+                            <h3>Your emergency request has been received!</h3>
+                            <p>We have successfully tracked your location and notified the nearest emergency services.</p>
+                            <p>Please stay safe and wait for assistance to arrive.</p>
+                            
+                            <div class="ai-suggestions" style="margin-top: 20px;">
+                                <div class="ai-header">
+                                    <i class="fas fa-robot"></i>
+                                    <h3>AI Safety Tips</h3>
+                                </div>
+                                <div class="suggestion-item">
+                                    <i class="fas fa-lightbulb"></i>
+                                    <span>If possible, move to a well-lit area to help responders find you</span>
+                                </div>
+                                <div class="suggestion-item">
+                                    <i class="fas fa-mobile-alt"></i>
+                                    <span>Keep your phone charged and with you at all times</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="options-grid">
+                            <div class="option-btn" style="background: linear-gradient(135deg, #2196F3, #0D47A1);">
+                                <i class="fas fa-map-marker-alt"></i>
+                                View My Location
+                            </div>
+                            <div class="option-btn" style="background: linear-gradient(135deg, #FF9800, #E65100);">
+                                <i class="fas fa-phone-alt"></i>
+                                Call Emergency Contact
+                            </div>
+                        </div>
+                        
+                        <button class="btn btn-secondary" onclick="showStep(2)">
+                            <i class="fas fa-arrow-left"></i> Back
+                        </button>
+                        
+                        <button class="btn btn-secondary" onclick="showStep(1)" style="background: linear-gradient(135deg, #6c757d, #495057);">
+                            <i class="fas fa-redo"></i> Start Over
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="home-indicator"></div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="footer">
+        <p>DeafSOS - Hackathon Project | Protecting our deaf community in emergencies</p>
+        <p>© 2023 DeafSOS Team. All rights reserved.</p>
+    </div>
+
+    <script>
+        // Current emergency type
+        let currentEmergencyType = 1;
+        
+        // Function to show a specific step
+        function showStep(stepNumber) {
+            // Hide all steps
+            document.querySelectorAll('.section').forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            // Show the selected step
+            document.getElementById('step' + stepNumber).classList.add('active');
+        }
+        
+        // Function to handle emergency type selection
+        function selectEmergency(type) {
+            currentEmergencyType = type;
+            
+            // Set emergency type text
+            const emergencyTypes = [
+                "",
+                "Immediate Help",
+                "Medical Assistance",
+                "Police Help",
+                "Fire Department"
+            ];
+            
+            const detailsText = {
+                1: "Please provide more details about your immediate danger:",
+                2: "Please describe the medical emergency:",
+                3: "Please provide details about why you need police assistance:",
+                4: "Please provide details about the fire emergency:"
+            };
+            
+            const aiTitles = {
+                1: "Immediate Danger Recommendations",
+                2: "Medical Emergency Recommendations",
+                3: "Police Assistance Recommendations",
+                4: "Fire Emergency Recommendations"
+            };
+            
+            const aiSuggestions = {
+                1: [
+                    "Find a safe location if possible",
+                    "Stay quiet and avoid drawing attention",
+                    "Keep your phone accessible at all times"
+                ],
+                2: [
+                    "If injured, try to stay still and avoid movement",
+                    "If with someone, have them apply first aid if trained",
+                    "Keep emergency medications accessible if available"
+                ],
+                3: [
+                    "If safe, move to a well-lit public area",
+                    "Note descriptions of suspicious individuals",
+                    "Lock doors and windows if indoors"
+                ],
+                4: [
+                    "Evacuate immediately if instructed or if smoke is present",
+                    "Stay low to the ground if there's smoke",
+                    "Feel doors for heat before opening"
+                ]
+            };
+            
+            document.getElementById('emergency-details').textContent = detailsText[type];
+            document.getElementById('confirmation-title').textContent = `Confirm Your ${emergencyTypes[type]} Request`;
+            document.getElementById('confirmation-desc').textContent = `We need more information about your ${emergencyTypes[type].toLowerCase()} situation`;
+            document.getElementById('ai-title').textContent = aiTitles[type];
+            
+            // Update AI suggestions
+            const aiContent = document.getElementById('ai-suggestions-content');
+            aiContent.innerHTML = '';
+            
+            aiSuggestions[type].forEach(suggestion => {
+                const item = document.createElement('div');
+                item.className = 'suggestion-item';
+                item.innerHTML = `<i class="fas fa-lightbulb"></i><span>${suggestion}</span>`;
+                aiContent.appendChild(item);
+            });
+            
+            // Hide all emergency specific questions
+            document.querySelectorAll('.emergency-specific').forEach(el => {
+                el.classList.remove('active-question');
+            });
+            
+            // Show the relevant questions
+            const questionIds = [
+                '',
+                'immediate-questions',
+                'medical-questions',
+                'police-questions',
+                'fire-questions'
+            ];
+            
+            document.getElementById(questionIds[type]).classList.add('active-question');
+            
+            // Show confirmation step
+            showStep(2);
+        }
+        
+        // Function to handle option selection in follow-up questions
+        function selectOption(element) {
+            // Remove selected class from all options in the same group
+            const parent = element.parentElement;
+            const siblings = parent.querySelectorAll('.followup-btn');
+            siblings.forEach(btn => {
+                btn.style.background = 'rgba(255, 255, 255, 0.1)';
+                btn.style.color = 'white';
+            });
+            
+            // Highlight selected option
+            element.style.background = '#2E5BFF';
+            element.style.color = 'white';
+        }
+        
+        // Initialize the first step
+        showStep(1);
+    </script>
+</body>
+</html>
