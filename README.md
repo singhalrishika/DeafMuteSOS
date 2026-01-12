@@ -30,3 +30,21 @@ This project is developed as a **beginner frontend project** using basic web tec
 ---
 
 ## 📂 Project Structure
+## 📊 Project Board
+
+Tasks and progress are tracked using GitHub Projects:  
+
+- **Todo**: Upcoming tasks and enhancements  
+- **In Progress**: Tasks currently being worked on  
+- **Done**: Completed features and prototype implementation  
+
+[View Project Board](https://github.com/singhalrishika/deafsos/projects)
+
+---
+
+## 🚀 Usage
+
+1. Clone the repository:
+```bash
+git clone https://github.com/rishika115/singhalrishika/deafsos.git
+
