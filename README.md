@@ -38,7 +38,7 @@ Tasks and progress are tracked using GitHub Projects:
 - **In Progress**: Tasks currently being worked on  
 - **Done**: Completed features and prototype implementation  
 
-[View Project Board](https://github.com/singhalrishika/deafsos/projects)
+[View Project Board] https://singhalrishika.github.io/DeafMuteSOS/
 
 ---
 
