@@ -41,6 +41,10 @@ Tasks and progress are tracked using GitHub Projects:
 [View Project Board] https://singhalrishika.github.io/DeafMuteSOS/
 
 ---
+## 🌐 Live Demo
+Check out the live SOS web app here:  
+[Live Demo](https://singhalrishika.github.io/DeafMuteSOS/)
+
 
 ## 🚀 Usage
 
